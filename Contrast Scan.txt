@@ -1,0 +1,53 @@
+Found existing project...
+✔ Uploaded file successfully.
+✔ Contrast Scan complete
+----- Scan completed in 64.66s -----
+Here are your top priorities to fix
+
+CONTRAST-001 - [CRITICAL] json-injection in which a script is used to incorporate untrusted data into a string,    
+               that is then parsed directly as a JSON data structure, then executed by the application.
+        Code : target/react-storefront-master/react-storefront-master/src/hooks/useLocalStorage.js:11
+       Issue : This query includes untrusted data, allowing attackers to perform actions on behalf of a user.
+               Validate all sources to prevent any untrusted data to be parsed as JSON.
+       Learn : https://www.contrastsecurity.com/developer/learn/client-side-injection
+
+CONTRAST-002 - [HIGH] dom-xss in which Javascript takes data from an attacker controllable source, and passes it to
+               a sink supporting dynamic code execution. By doing so, the attacker is then able to execute
+               malicious Javascript. A common attack sequence is using the URL as the source, via the
+               window.location object, and passing it to a sink such as eval() or innerHTML.
+        Code : target/react-storefront-master/react-storefront-master/src/serviceWorker.js:59
+       Issue : This HTML output contains untrusted data previously stored on the client side. Avoid allowing data
+               from untrusted sources to be dynamically written to the HTML document. Ensure to sanitize client
+               side code such as URL, location, and referrer.
+       Learn : https://owasp.org/www-community/attacks/DOM_Based_XSS
+
+CONTRAST-003 - [LOW] react-dangerouslysetinnerhtmlDetection of dangerouslySetInnerHTML from non-constant
+               definition. This
+               can inadvertently expose users to cross-site scripting (XSS) attacks if this
+               comes  from user-provided input. If you have to use dangerouslySetInnerHTML,
+               consider using a sanitization library such as DOMPurify to sanitize your HTML.
+        Code : target/react-storefront-master/react-storefront-master/src/LazyHydrate.js:59
+       Issue : This vulnerability may introduce a Cross-Site-Scripting vulnerability by leveraging untrusted input.
+               This may enable the attacker to force users to silently perform actions that benefit the attacker,
+               like sending them their account or session credentials.
+      Advice : Ensure the use of data binding method of "{ data }" within HTML tags. If you cannot avoid this, and
+               if you have to bind data to innerHTML, ensure the data is from a trusted source, it cannot be
+               manipulated in transit, and potentially executable code is rendered harmless. Alternatively, ensure
+               data is properly encoded prior to binding to the 'dangerouslySetInnerHTML' property.
+
+CONTRAST-004 - [LOW] react-dangerouslysetinnerhtmlDetection of dangerouslySetInnerHTML from non-constant
+               definition. This
+               can inadvertently expose users to cross-site scripting (XSS) attacks if this
+               comes  from user-provided input. If you have to use dangerouslySetInnerHTML,
+               consider using a sanitization library such as DOMPurify to sanitize your HTML.
+        Code : target/react-storefront-master/react-storefront-master/src/Highlight.js:29
+       Issue : This vulnerability may introduce a Cross-Site-Scripting vulnerability by leveraging untrusted input.
+               This may enable the attacker to force users to silently perform actions that benefit the attacker,
+               like sending them their account or session credentials.
+      Advice : Ensure the use of data binding method of "{ data }" within HTML tags. If you cannot avoid this, and
+               if you have to bind data to innerHTML, ensure the data is from a trusted source, it cannot be
+               manipulated in transit, and potentially executable code is rendered harmless. Alternatively, ensure
+               data is properly encoded prior to binding to the 'dangerouslySetInnerHTML' property.
+
+Found 4 vulnerabilities
+1 Critical | 1 High | 0 Medium | 2 Low | 0 Note
